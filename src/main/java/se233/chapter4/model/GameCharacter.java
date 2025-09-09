@@ -1,7 +1,6 @@
 package se233.chapter4.model;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import se233.chapter4.Launcher;
@@ -33,19 +32,23 @@ public class GameCharacter extends Pane {
     int xMaxVelocity = 7;
     int yMaxVelocity = 17;
 
-    public GameCharacter(int x, int y, int offsetX, int offsetY, KeyCode leftKey, KeyCode rightKey, KeyCode upKey) {
+    public GameCharacter(int x, int y, int offsetX, int offsetY, KeyCode leftKey, KeyCode rightKey, KeyCode upKey
+            , String spriteSheetPath, int spriteHeight, int spriteWidth, int xMaxVelocity, int yMaxVelocity, int columns, int rows, int count) {
         this.x = x;
         this.y = y;
         this.setTranslateX(x);
         this.setTranslateY(y);
-        this.gameCharacterImage = new Image(Launcher.class.getResourceAsStream("assets/MarioSheet.png"));
-        this.imageView = new AnimatedSprite(gameCharacterImage, 4, 4, 1, offsetX, offsetY, 16, 32);
+        this.gameCharacterImage = new Image(Launcher.class.getResourceAsStream(spriteSheetPath));
+        this.imageView = new AnimatedSprite(gameCharacterImage, count, columns, rows, offsetX, offsetY, spriteWidth, spriteHeight);
         this.imageView.setFitWidth(CHARACTER_WIDTH);
         this.imageView.setFitHeight(CHARACTER_HEIGHT);
+        this.xMaxVelocity = xMaxVelocity;
+        this.yMaxVelocity = yMaxVelocity;
         this.leftKey = leftKey;
         this.rightKey = rightKey;
         this.upKey = upKey;
         this.getChildren().add(this.imageView);
+        System.out.println("Character Created" + "(" + x + "," + y + ")");
     }
 
     public void moveX() {
@@ -85,8 +88,10 @@ public class GameCharacter extends Pane {
     public void checkReachGameWall() {
         if (x <= 0) {
             x = 0;
+            debugCollision();
         } else if (x + getWidth() >= GameStage.WIDTH) {
             x = GameStage.WIDTH - (int) getWidth();
+            debugCollision();
         }
     }
 
@@ -144,5 +149,9 @@ public class GameCharacter extends Pane {
 
     public void trace() {
         logger.info("x:{} y:{} vx:{} vy:{}", x, y, xVelocity, yVelocity);
+    }
+
+    public void debugCollision() {
+        logger.debug("Hit the wall boundary");
     }
 }
