@@ -24,7 +24,7 @@ public class GameStage extends Pane {
         backgroundImg.setFitWidth(WIDTH);
         backgroundImg.setFitHeight(HEIGHT);
         gameCharacter = new GameCharacter(30, 30, 0, 0, KeyCode.A, KeyCode.D, KeyCode.W, "assets/mariosheet.png", 32, 16, 10, 15,4, 1, 4, 32, 64);
-        enemyCharacter = new GameCharacter(300, 30, 0, 0, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, "assets/rockman.png", 1028/2, 2705/5, 15,20, 5, 2, 5,64, 64);
+        enemyCharacter = new GameCharacter(300, 30, 0, 0, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, "assets/rockman.png", 1028/2, 2705/5, 15,20, 5, 2, 10,64, 64);
         getChildren().addAll(backgroundImg, gameCharacter, enemyCharacter);
     }
 
