@@ -11,8 +11,8 @@ import org.apache.logging.log4j.Logger;
 
 public class GameCharacter extends Pane {
     private static final Logger logger = LogManager.getLogger(GameCharacter.class);
-    public static final int CHARACTER_WIDTH = 32;
-    public static final int CHARACTER_HEIGHT = 64;
+    public int CHARACTER_WIDTH;
+    public int CHARACTER_HEIGHT;
     private Image gameCharacterImage;
     private AnimatedSprite imageView;
     private int x;
@@ -33,11 +33,14 @@ public class GameCharacter extends Pane {
     int yMaxVelocity = 17;
 
     public GameCharacter(int x, int y, int offsetX, int offsetY, KeyCode leftKey, KeyCode rightKey, KeyCode upKey
-            , String spriteSheetPath, int spriteHeight, int spriteWidth, int xMaxVelocity, int yMaxVelocity, int columns, int rows, int count) {
+            , String spriteSheetPath, int spriteHeight, int spriteWidth, int xMaxVelocity, int yMaxVelocity, int columns, int rows, int count
+    , int character_width, int character_height) {
         this.x = x;
         this.y = y;
         this.setTranslateX(x);
         this.setTranslateY(y);
+        this.CHARACTER_HEIGHT = character_height;
+        this.CHARACTER_WIDTH = character_width;
         this.gameCharacterImage = new Image(Launcher.class.getResourceAsStream(spriteSheetPath));
         this.imageView = new AnimatedSprite(gameCharacterImage, count, columns, rows, offsetX, offsetY, spriteWidth, spriteHeight);
         this.imageView.setFitWidth(CHARACTER_WIDTH);
